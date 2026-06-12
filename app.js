@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // sesiones 
 
-app.set("trust proxy", 1);
+
 
 app.use(
   session({
@@ -43,7 +43,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     cookie: {
-      secure: true,        
+      secure: process.env.NODE_ENV === "production",        
       httpOnly: true,
       sameSite: "lax",    
       maxAge: 1000 * 60 * 60 * 24

@@ -1,5 +1,5 @@
 export function isAuthenticated(req, res, next) {
-    console.log("SESSION CHECK:", req.session.usuario);
+    
 
     if (!req.session.usuario) {
         return res.render("auth/login", {
