@@ -45,7 +45,7 @@ export async function createPost(req, res) {
             id_usuario: usuarioId
         });
 
-        console.log("PUBLICACIÓN OK:", publicacion.id_publicacion);
+        
 
       
         // IMAGEN (BLOB)
@@ -235,7 +235,7 @@ export async function renderPostDetail(req, res) {
     res.render("pages/post-detail", {
       title: "Detalle publicación",
       publicacion,
-      usuario: req.session.usuario // ✅ ESTE ES EL FIX
+      usuario: req.session.usuario // 
     });
 
   } catch (error) {

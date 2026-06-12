@@ -3,7 +3,7 @@ import { Valoracion ,Imagen,Publicacion } from "../models/index.js";
 
 export async function valorarImagen(req, res) {
   try {
-
+  
     const id_imagen = req.params.id;
     const puntaje  = Number(req.body.puntaje);
     const usuarioId = req.session.usuario.id_usuario;
@@ -21,9 +21,9 @@ export async function valorarImagen(req, res) {
     }
 
     // bloquear si es su propia publicación
-    if (imagen.publicacion.id_usuario === usuarioId) {
-      return res.status(403).json();
-    }
+    if (Number(imagen.publicacion?.id_usuario) === Number(usuarioId)) {
+  return res.status(403).json({ ok: false });
+}
 
     const [valoracion, creada] = await Valoracion.findOrCreate({
       where: {

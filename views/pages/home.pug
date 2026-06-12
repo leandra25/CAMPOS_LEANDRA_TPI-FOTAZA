@@ -63,7 +63,7 @@ block content
                         // RATING
                         // =========================
 
-                        if publicacion.autor.id_usuario !== usuario.id_usuario
+                        if publicacion.autor && usuario && publicacion.autor.id_usuario !== usuario.id_usuario
 
                           .d-flex.gap-1.mt-2.rating(
                             data-id=imagen.id_imagen
