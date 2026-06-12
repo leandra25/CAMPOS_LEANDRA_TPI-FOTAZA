@@ -22,10 +22,8 @@ const PORT = process.env.PORT;
 const app = express();
 
 //pug
-// motor pug
-app.set('view engine', 'pug');
-// carpeta views
-app.set('views', './views');
+app.set("views", path.join(process.cwd(), "views"));
+app.set("view engine", "pug");
 
 // MIDDLEWARES
 // carpeta public
