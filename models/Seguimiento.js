@@ -28,6 +28,7 @@ Seguimiento.init(
 
     timestamps: true,
     paranoid: true,
+    
 
     indexes: [ // un usuario no puede seguir dos veces al mismo usuario.
       {

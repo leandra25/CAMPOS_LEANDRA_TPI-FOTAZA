@@ -27,7 +27,7 @@ Coleccion_Publicacion.init(
     tableName: "coleccion_publicacion",
 
     timestamps: true, //Agrega automáticamente:createdAt,updatedAt
-    paranoid: true,
+    paranoid: true, //borrado logico
 
     indexes: [
       {

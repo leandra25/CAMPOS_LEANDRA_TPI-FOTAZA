@@ -13,7 +13,7 @@ Rol.init(
 
     nombre: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
       unique: true,
       validate: {
         notEmpty: true,

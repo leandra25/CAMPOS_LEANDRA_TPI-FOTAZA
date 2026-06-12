@@ -18,8 +18,18 @@ Usuario.init(
       unique: true, //Evita duplicados
       validate: { //el username no puede estar vacío y debe tener entre 3 y 50 caracteres.
         notEmpty: true,
-        len: [3, 50], 
+        len: [3, 50],
       },
+    },
+    firstname: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+
+    },
+    lastname: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+
     },
 
     email: {
@@ -49,6 +59,10 @@ Usuario.init(
     id_rol: { //FK lógica
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

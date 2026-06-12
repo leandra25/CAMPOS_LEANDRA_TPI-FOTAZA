@@ -3,6 +3,9 @@
 // ===============================
 import sequelize from "./config.js"; // conexión a PostgreSQL mediante Sequelize
 
+import { seedRoles } from '../seeders/roles.seed.js';
+import { seedLicencias } from "../seeders/licencias.seed.js";
+
 // importación de todos los modelos
 import { Rol } from "./Rol.js";
 import { Usuario } from "./Usuario.js";
@@ -401,6 +404,7 @@ Publicacion.belongsToMany(Coleccion, {
 // ======================================================
 
 export {
+  sequelize,
   Rol,
   Usuario,
   Publicacion,
@@ -419,6 +423,7 @@ export {
   Mensaje,
   Coleccion,
   Coleccion_Publicacion,
+  
 };
 
 // ======================================================
@@ -435,7 +440,9 @@ export async function connectDatabase() {
     // crea tablas si no existen
     // force:true elimina y recrea todo
     //alter: true intenta actualizar la estructura sin borrar todo.
-    await sequelize.sync({  force:true});
+    await sequelize.sync({alter:true});
+    await seedRoles();
+    await seedLicencias();
     console.log('sincronizando modelos')
     }catch(error){
         console.log('Error en la conexion a la base de datos', error)

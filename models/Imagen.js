@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "./config.js";
 
-export class Imagen extends Model {}
+export class Imagen extends Model { }
 
 Imagen.init(
   {
@@ -16,13 +16,24 @@ Imagen.init(
       allowNull: false,
     },
 
-    licencia_id: {
+    id_licencia: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
 
-    ruta_imagen: {
+    // Nombre original del archivo
+    nombre_archivo: {
       type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+
+    tipo_mime: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+
+    datos_imagen: {
+      type: DataTypes.BLOB,
       allowNull: false,
     },
 
