@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+
+    h1.mb-4 Mensajes
+
+    .card.shadow
+
+        .card-body
+
+            // si no hay mensajes
+            if mensajes.length === 0
+
+                .alert.alert-info
+                    | No hay mensajes
+
+            // recorrer mensajes
+            each mensaje in mensajes
+
+                .border.rounded.p-3.mb-3
+
+                    strong
+                        = mensaje.usuario?.username
+
+                    p.mb-1
+                        = mensaje.contenido
+
+                    small.text-muted
+                        = mensaje.createdAt
+
+    // enviar mensaje
+    .card.mt-4.shadow
+
+        .card-body
+
+            form(
+                action=`/mensajes/enviar/${mensajeria.id_mensajeria}`
+                method="POST"
+            )
+
+                textarea.form-control.mb-3(
+                    name="contenido"
+                    rows="3"
+                    placeholder="Escribe un mensaje"
+                )
+
+                button.btn.btn-primary(
+                    type="submit"
+                )
+                    Enviar

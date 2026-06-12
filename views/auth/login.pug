@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+  .row.justify-content-center.align-items-center(style="min-height: 75vh;")
+    .col-md-6.col-lg-5
+      .card.shadow-lg.border-0
+        .card-header.bg-primary.text-white.text-center.py-3
+          h3.mb-0.fw-bold Iniciar sesión
+          if error 
+            .alert.alert-danger 
+              = error
+        .card-body.p-4
+
+          if error 
+            .alert.alert-warning.alert-dismissible.fade.show(role="alert")
+              = error 
+              button.btn-close(type="button" data-bs-dismiss="alert") 
+          form(action="/auth/login" method="POST")
+            
+            //- Email
+            .mb-3
+              label.form-label.fw-semibold(for="email") Correo electrónico
+              input#email.form-control(
+                type="email" 
+                name="email" 
+                placeholder="Ingrese su correo" 
+                required
+              )
+
+            //- Contraseña
+            .mb-3
+              label.form-label.fw-semibold(for="password") Contraseña
+              input#password.form-control(
+                type="password" 
+                name="password" 
+                placeholder="Ingrese su contraseña" 
+                required
+              )
+
+            //- Botón de envío
+            .d-grid.gap-2.mt-4
+              button.btn.btn-primary.py-2.fw-bold(type="submit") Iniciar sesión
+
+          hr.my-4
+
+          p.text-center.mb-0.text-muted
+            | ¿No tenés cuenta? 
+            a.fw-bold.text-decoration-none(href="/auth/register") Registrarse
+  include ../partials/footer
+  

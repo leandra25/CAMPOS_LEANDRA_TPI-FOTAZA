@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+
+    .d-flex.justify-content-between.mb-4
+
+        h1 Colecciones
+
+        a.btn.btn-success(
+            href="/colecciones/crear"
+        )
+            Nueva colección
+
+    if colecciones.length === 0
+
+        .alert.alert-info
+            | No hay colecciones
+
+    each coleccion in colecciones
+
+        .card.mb-3.shadow-sm
+
+            .card-body
+
+                h4
+                    = coleccion.nombre
+
+                p
+                    = coleccion.descripcion
+
+                a.btn.btn-outline-primary(
+                    href=`/colecciones/${coleccion.id_coleccion}`
+                )
+                    Ver colección

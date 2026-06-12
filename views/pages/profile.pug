@@ -1,0 +1,146 @@
+extends ../layout
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8
+
+        .card.shadow
+          .card-body
+
+            h2.text-center.mb-4 Mi Perfil
+
+            hr
+
+            // =========================
+            // ESTADÍSTICAS
+            // =========================
+            .row.text-center.mb-4
+              .col
+                h5.mb-0= (perfil.publicaciones || []).length
+                small.text-muted Publicaciones
+
+              .col
+                h5.mb-0= seguidoresCount
+                small.text-muted Seguidores
+
+              .col
+                h5.mb-0= siguiendoCount
+                small.text-muted Siguiendo
+
+            h3.text-center.mb-1= perfil.username
+            p.text-center.text-muted= perfil.email
+
+            hr
+
+            a.btn.btn-warning.text-center.d-block.mb-4(href="/perfil/editar")
+              | Editar perfil
+
+            hr
+
+            // =========================
+            // PUBLICACIONES
+            // =========================
+            h4.mb-4 Mis publicaciones
+
+            if perfil.publicaciones && perfil.publicaciones.length > 0
+
+              each publicacion in perfil.publicaciones
+
+                .card.mb-4.shadow-sm
+                  .card-body
+
+                    h4= perfil.firstname + ' ' + perfil.lastname
+                    h5= publicacion.titulo
+                    p.text-muted= publicacion.descripcion
+
+                    // =========================
+                    // BOTONES (EDITAR + ELIMINAR)
+                    // =========================
+                    if usuario && usuario.id_usuario === publicacion.id_usuario
+
+                      .d-flex.gap-2.mb-3
+
+                        a.btn.btn-sm.btn-outline-primary(
+                          href=`/publicaciones/editar/${publicacion.id_publicacion}`
+                        )
+                          | Editar
+
+                        form(
+                          action=`/publicaciones/eliminar/${publicacion.id_publicacion}`
+                          method="POST"
+                        )
+
+                          button.btn.btn-sm.btn-danger(
+                            type="submit"
+                            onclick="return confirm('¿Seguro que querés eliminar esta publicación?')"
+                          )
+                            | Eliminar
+
+                    // =========================
+                    // IMÁGENES
+                    // =========================
+                    if publicacion.imagenes && publicacion.imagenes.length > 0
+
+                      each imagen in publicacion.imagenes
+
+                        img.img-fluid.rounded.mb-3(
+                          src=`/publicaciones/imagen/${imagen.id_imagen}`
+                        )
+
+                        // =========================
+                        // VALORACIÓN
+                        // =========================
+                        if imagen.valoraciones
+
+                          - const total = imagen.valoraciones.reduce((s, v) => s + v.puntaje, 0)
+                          - const cantidad = imagen.valoraciones.length
+                          - const promedio = cantidad ? (total / cantidad).toFixed(1) : 0
+
+                          p.text-warning.fw-bold.mt-2
+                            | ⭐ #{promedio}/5 (#{cantidad} valoraciones)
+
+                        else
+                          p.text-warning.fw-bold.mt-2
+                            | ⭐ 0/5 (0 valoraciones)
+
+                        // =========================
+                        // COMENTARIOS
+                        // =========================
+                        h6.mt-3 Comentarios
+
+                        if usuario
+
+                          form.mt-2.mb-3(action="/comentarios/crear" method="POST")
+
+                            input(
+                              type="hidden"
+                              name="id_imagen"
+                              value=imagen.id_imagen
+                            )
+
+                            textarea.form-control(
+                              name="contenido"
+                              rows="2"
+                              placeholder="Escribe un comentario..."
+                              required
+                            )
+
+                            button.btn.btn-primary.btn-sm.mt-2(type="submit")
+                              | Comentar
+
+                        if imagen.comentarios && imagen.comentarios.length > 0
+
+                          each comentario in imagen.comentarios
+
+                            .border.rounded.p-2.mb-2
+                              strong= comentario.usuario.username
+                              |
+                              small.text-muted.ms-2= new Date(comentario.createdAt).toLocaleDateString("es-AR")
+                              p.mb-0= comentario.contenido
+
+                        else
+                          p.text-muted Sin comentarios
+
+            else
+              p.text-muted.text-center Todavía no publicaste nada.

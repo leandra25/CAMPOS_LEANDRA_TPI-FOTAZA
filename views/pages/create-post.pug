@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+
+    h1.mb-4 Crear publicación
+
+    .card.shadow
+
+        .card-body
+
+            form(
+                action="/publicaciones/crear"
+                method="POST"
+            )
+
+                .mb-3
+                    label.form-label Título
+
+                    input.form-control(
+                        type="text"
+                        name="titulo"
+                        required
+                    )
+
+                .mb-3
+                    label.form-label Descripción
+
+                    textarea.form-control(
+                        name="descripcion"
+                        rows="5"
+                    )
+
+                .mb-3
+                    label.form-label Etiquetas
+
+                    input.form-control(
+                        type="text"
+                        name="etiquetas"
+                        placeholder="naturaleza, playa, vacaciones..."
+                    )
+
+                .mb-3
+                    label.form-label Imagen
+
+                    input#imagenInput.form-control(
+                        type="file"
+                        accept="image/*"
+                        multiple
+                    )
+
+                    input(
+                        type="hidden"
+                        name="imagenes"
+                        id="imagenes"
+                    )
+                .text-center.mb-3
+
+                    img#previewImagen.img-fluid.rounded.shadow(
+                        style="display:none; max-height:300px;"
+                    )
+
+                button.btn.btn-success(
+                    type="submit"
+                )
+                    Crear publicar
+
+    script(src="/js/create-post.js")

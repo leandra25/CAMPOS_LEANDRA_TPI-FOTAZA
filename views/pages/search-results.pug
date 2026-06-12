@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+
+  .container.mt-4
+
+    h2.mb-4
+      | Resultados para "#{busqueda}"
+
+    if !publicaciones || publicaciones.length === 0
+
+      .alert.alert-warning
+        | No se encontraron resultados.
+
+    else
+
+      each publicacion in publicaciones
+        .card.mb-3
+          .card-body
+
+            h4= publicacion.titulo
+            p= publicacion.descripcion
+
+            if publicacion.etiquetas && publicacion.etiquetas.length > 0
+              each etiqueta in publicacion.etiquetas
+                span.badge.bg-primary.me-1
+                  | ##{etiqueta.nombre}
+
+            br
+            br
+
+            a.btn.btn-primary(
+              href=`/publicaciones/${publicacion.id_publicacion}`
+            )
+              | Ver publicación

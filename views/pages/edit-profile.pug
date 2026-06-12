@@ -1,0 +1,47 @@
+extends ../layout
+block content
+
+    .row.justify-content-center
+
+        .col-md-6
+
+            .card.shadow
+
+                .card-body
+
+                    h2.text-center.mb-4
+                        | Editar perfil
+
+                    form(
+                        action="/perfil/editar"
+                        method="POST"
+                    )
+
+                        .mb-3
+
+                            label.form-label
+                                | Username
+
+                            input.form-control(
+                                type="text"
+                                name="username"
+                                value=usuario.username
+                                required
+                            )
+
+                        .mb-3
+
+                            label.form-label
+                                | Email
+
+                            input.form-control(
+                                type="email"
+                                name="email"
+                                value=usuario.email
+                                required
+                            )
+
+                        button.btn.btn-primary.w-100(
+                            type="submit"
+                        )
+                            | Guardar cambios

@@ -1,0 +1,19 @@
+footer(style="position: fixed; bottom: 0; left: 0; width: 100% !important; background-color: #212529 !important; color: #f8f9fa !important; padding: 10px 0 !important; border-top: 1px solid #495057 !important; z-index: 1000 !important;")
+  //-  DIVIDIMOS LA PANTALLA EN 3 COLUMNAS MATEMÁTICAS EXACTAS
+  div(style="display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1400px !important; margin: 0 auto !important; padding: 0 20px !important; box-sizing: border-box !important;")
+    
+    //- Columna Izquierda: El Copyright tirado a la derecha (hacia el centro)
+    div(style="text-align: right !important; padding-right: 15px !important; margin: 0 !important;")
+      span(style="color: #f8f9fa !important; font-size: 0.75rem !important; white-space: nowrap !important;") &copy; 2026 Fotaza. Todos los derechos reservados.
+    
+    //- Columna Central: Los links perfectamente clavados en el medio
+    div(style="display: flex !important; gap: 10px !important; align-items: center !important; justify-content: center !important; margin: 0 !important; padding: 0 !important;")
+      a.text-muted.text-decoration-none(href="/" style="font-size: 0.75rem !important; color: #6c757d !important;") Inicio
+      span.text-secondary(style="color: #495057 !important;") |
+      a.text-muted.text-decoration-none(href="#" style="font-size: 0.75rem !important; color: #6c757d !important;") Términos
+      span.text-secondary(style="color: #495057 !important;") |
+      a.text-muted.text-decoration-none(href="#" style="font-size: 0.75rem !important; color: #6c757d !important;") Privacidad
+    
+    //- Columna Derecha: El texto de la facultad tirado a la izquierda (hacia el centro)
+    div(style="text-align: left !important; padding-left: 15px !important; margin: 0 !important;")
+      span.text-muted(style="font-size: 0.75rem !important; color: #6c757d !important; white-space: nowrap !important;") Desarrollado para Programación Web 2

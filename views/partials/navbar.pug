@@ -1,0 +1,65 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  .container-fluid
+    //- Logo de la app siempre visible
+    a.navbar-brand.fs-3(href="/") Fotaza
+
+    
+    button.navbar-toggler(
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbar"
+    )
+      span.navbar-toggler-icon
+
+    //- Contenedor colapsable principal
+    #navbar.collapse.navbar-collapse
+      if usuario
+        //- LOGUEADO: Enlaces alineados a la izquierda
+        ul.navbar-nav.me-auto
+          li.nav-item
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/perfil") Perfil
+          li.nav-item
+            a.nav-link(href="/publicaciones/crear") Publicar
+          li.nav-item
+            a.nav-link(href="/colecciones") Colecciones
+
+        //- NUEVO: Contenedor del Buscador Inteligente (con filtros y autocompletado)
+        .position-relative.mx-auto.my-2.my-lg-0(style="max-width: 350px; width: 100%;")
+          form#searchForm.d-flex(action="/buscar" method="GET")
+            input#searchInput.form-control.me-2(
+              type="search" 
+              name="q" 
+              placeholder="Buscar en Fotaza..." 
+              aria-label="Buscar"
+              autocomplete="off"
+            )
+            button.btn.btn-outline-success(type="submit") Buscar
+          
+          //- Micro-filtros debajo del input (Opciones para elegir el tipo de búsqueda)
+          .d-flex.gap-3.mt-1.px-1(style="font-size: 0.75rem; color: #adb5bd;")
+            label.d-flex.align-items-center.gap-1.cursor-pointer
+              input#filterTitle(type="radio" name="type" value="titulo" checked) 
+              | Título
+            label.d-flex.align-items-center.gap-1.cursor-pointer
+              input#filterTag(type="radio" name="type" value="etiqueta") 
+              | Etiqueta
+
+          //- Caja flotante donde el JS inyectará los resultados en tiempo real
+          #liveSearchResults.list-group.position-absolute.w-100.shadow.d-none(style="top: 100%; z-index: 1050; max-height: 280px; overflow-y: auto;")
+
+        //- LOGUEADO: Notificaciones, Mensajes y Salir a la derecha
+        ul.navbar-nav.ms-auto.align-items-center
+          li.nav-item
+            a.nav-link(href="/notificaciones") Notificaciones
+          li.nav-item
+            a.nav-link(href="/mensajes/1") Mensajes
+          li.nav-item.ms-2
+            a.btn.btn-danger(href="/auth/logout") Salir
+
+      else
+        //- INVITADO: Botón para entrar sin cuenta a la derecha (Sin Buscador)
+        ul.navbar-nav.ms-auto
+          li.nav-item
+            a.btn.btn-outline-light(href="/") Entrar sin cuenta

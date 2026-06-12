@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+
+    h1.mb-4 Notificaciones
+
+    if notificaciones.length === 0
+
+        .alert.alert-warning
+            | No tienes notificaciones
+
+    each notificacion in notificaciones
+
+        .card.mb-3.shadow-sm
+
+            .card-body
+
+                strong
+                    = notificacion.origen?.username
+
+                case notificacion.tipo
+
+                    when "COMENTARIO"
+                        p comentó tu publicación
+
+                    when "FOLLOW"
+                        p empezó a seguirte
+
+                    when "VALORACION"
+                        p valoró tu publicación
+
+                    when "ME_INTERESA"
+                        p mostró interés
+
+                if notificacion.leida
+
+                    span.badge.bg-success
+                        Leída
+
+                else
+
+                    span.badge.bg-danger
+                        No leída

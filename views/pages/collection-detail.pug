@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+
+    h1.mb-2
+        = coleccion.nombre
+
+    p.text-muted.mb-4
+        = coleccion.descripcion
+
+    if publicaciones.length === 0
+
+        .alert.alert-info
+            | No hay publicaciones
+
+    each publicacion in publicaciones
+
+        .card.mb-3.shadow-sm
+
+            .card-body
+
+                h4
+                    = publicacion.titulo
+
+                p
+                    = publicacion.descripcion
+
+                a.btn.btn-outline-primary(
+                    href=`/publicaciones/${publicacion.id_publicacion}`
+                )
+                    Ver publicación

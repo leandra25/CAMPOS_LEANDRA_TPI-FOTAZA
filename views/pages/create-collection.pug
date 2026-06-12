@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+
+    h1.mb-4 Nueva colección
+
+    .card.shadow
+
+        .card-body
+
+            form(
+                action="/colecciones/crear"
+                method="POST"
+            )
+
+                .mb-3
+
+                    label.form-label
+                        Nombre
+
+                    input.form-control(
+                        type="text"
+                        name="nombre"
+                        required
+                    )
+
+                .mb-3
+
+                    label.form-label
+                        Descripción
+
+                    textarea.form-control(
+                        name="descripcion"
+                        rows="4"
+                    )
+
+                button.btn.btn-success(
+                    type="submit"
+                )
+                    Crear colección

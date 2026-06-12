@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  //- 🚀 Ajustamos la fila para centrar el formulario largo y empujar el fondo
+  .row.justify-content-center.align-items-center.py-4.pb-5(style="min-height: 75vh;")
+    .col-md-6.col-lg-5
+      .card.shadow-lg.border-0
+        .card-header.bg-primary.text-white.text-center.py-3
+          h3.mb-0.fw-bold= title || "Crear cuenta"
+        .card-body.p-4
+          form(action="/auth/register" method="POST")
+            
+            //- Nombre de usuario
+            .mb-3
+              label.form-label.fw-semibold(for="username") Nombre de usuario
+              input#username.form-control(type="text" name="username" placeholder="Ej: juancito123" required)
+            
+            //- Nombre
+            .mb-3
+              label.form-label.fw-semibold(for="firstname") Nombre
+              input#firstname.form-control(type="text" name="firstname" placeholder="Ej: Juan" required)
+            
+            //- Apellido
+            .mb-3
+              label.form-label.fw-semibold(for="lastname") Apellido
+              input#lastname.form-control(type="text" name="lastname" placeholder="Ej: Pérez" required)
+            
+            //- Correo electrónico
+            .mb-3
+              label.form-label.fw-semibold(for="email") Correo electrónico
+              input#email.form-control(type="email" name="email" placeholder="Ej: juan@correo.com" required)
+            
+            //- Contraseña
+            .mb-3
+              label.form-label.fw-semibold(for="password") Contraseña
+              input#password.form-control(type="password" name="password" placeholder="Crea una contraseña" required)
+            
+            //- Botón de envío (Ancho completo)
+            .d-grid.gap-2.mt-4
+              button.btn.btn-primary.py-2.fw-bold(type="submit") Crear cuenta
+
+          hr.my-4
+
+          p.text-center.mb-0.text-muted
+            | ¿Ya tenés cuenta? 
+            a.fw-bold.text-decoration-none(href="/auth/login") Iniciar sesión
+
+  
+  include ../partials/footer

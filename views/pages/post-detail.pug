@@ -1,0 +1,104 @@
+extends ../layout
+
+block content
+
+  .container.mt-4
+    
+    h1.mb-3= publicacion.titulo
+
+    if publicacion.descripcion
+      p.lead= publicacion.descripcion
+
+    if publicacion.etiquetas && publicacion.etiquetas.length > 0
+
+      h5.mb-3 Etiquetas
+
+      each etiqueta in publicacion.etiquetas
+        span.badge.bg-primary.me-2.mb-2
+          = "#" + etiqueta.nombre
+
+    hr
+
+    if publicacion.imagenes && publicacion.imagenes.length > 0
+
+      each imagen in publicacion.imagenes
+
+        .card.shadow.mb-5
+
+          .card-body
+
+            img.img-fluid.rounded.mb-3(
+              src=`/publicaciones/imagen/${imagen.id_imagen}`
+              alt="Imagen publicación"
+            )
+
+            hr
+
+            h5.mb-3 Comentarios
+
+            if imagen.comentarios && imagen.comentarios.length > 0
+
+              each comentario in imagen.comentarios
+
+                .card.mb-2
+                  .card-body
+
+                    .d-flex.justify-content-between
+
+                      strong
+                        = comentario.usuario.username
+
+                      if comentario.createdAt
+                        small.text-muted
+                             = new Date(comentario.createdAt).toLocaleDateString("es-AR", {day: "numeric",month: "long",year: "numeric"})
+                    
+                    p.mb-0.mt-2
+                      = comentario.contenido
+
+            else
+
+              p.text-muted
+                No hay comentarios todavía.
+
+            if usuario
+
+              hr
+
+              form(
+                action="/comentarios/crear"
+                method="POST"
+              )
+
+                input(
+                  type="hidden"
+                  name="id_imagen"
+                  value=imagen.id_imagen
+                )
+                input(
+                  type="hidden"
+                  name="id_publicacion"
+                  value=publicacion.id_publicacion
+                )
+
+                .mb-3
+
+                  label.form-label Escribe un comentario
+
+                  textarea.form-control(
+                    name="contenido"
+                    rows="3"
+                    required
+                  )
+
+                button.btn.btn-primary(type="submit")
+                  Enviar Comentar
+
+            else
+
+              p.text-muted.mt-3
+                Debes iniciar sesión para comentar.
+
+    else
+
+      p.text-muted
+        Esta publicación no tiene imágenes.
