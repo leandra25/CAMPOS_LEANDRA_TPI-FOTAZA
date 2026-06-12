@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import path from "path";
-import pgSession from "connect-pg-simple";
 import session from "express-session";
 import { connectDatabase } from './models/index.js';
 import authRoutes from "./routes/auth.routes.js";
@@ -36,23 +35,22 @@ app.use(express.urlencoded({ extended: true }));
 
 // sesiones 
 
-const PgStore = pgSession(session);
+
 app.set("trust proxy", 1);
+
 app.use(
   session({
-    store: new PgStore({
-      conString: process.env.DATABASE_URL
-    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
+      httpOnly: true,
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24
     }
   })
-);
+);;
 app.use((req, res, next) => {
   res.locals.usuario = req.session.usuario;
   next();
