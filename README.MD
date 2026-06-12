@@ -44,3 +44,8 @@ cd fotaza
 
 ```bash
 npm install
+
+### USUARIOS DE PRUBA 
+- sofia@test.com   password 123456
+- maria@test.com   password 123456
+- leandro@test.com password 123456 
