@@ -132,6 +132,6 @@ export function logout(req, res) {
         if (err) {
             console.error("Error al destruir sesión:", err);
         }
-        res.redirect("auth/login");
+        res.redirect("/auth/login");
     });
 }
