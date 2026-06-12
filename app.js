@@ -37,33 +37,28 @@ app.use(express.urlencoded({ extended: true }));
 
 // sesiones 
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
-
-    // clave secreta
     secret: process.env.SESSION_SECRET,
-
-    // evita crear sesiones vacías
-    saveUninitialized:false,
-
-    // evita guardar si no cambió
-    resave:false,
-
+    saveUninitialized: false,
+    resave: false,
     cookie: {
-      secure:false,
-
-      // duración de cookie
-      maxAge:
-        1000 * 60 * 60 * 24,
-
-      httpOnly:true,
-      sameSite: 'lax'  
-    },
+      secure: true,        
+      httpOnly: true,
+      sameSite: "none",    
+      maxAge: 1000 * 60 * 60 * 24
+    }
   })
-)
-
+);
 
 // RUTAS
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuario;
+  next();
+});
+
 app.use("/auth", authRoutes);
 app.use("/", homeRoutes);
 app.use("/perfil", profileRoutes);
@@ -72,12 +67,11 @@ app.use("/comentarios", commentRoutes);
 app.use("/seguir", followRoutes);
 app.use("/buscar", searchRoutes);
 app.use("/valoraciones", ratingRoutes);
-app.use((req, res, next) => {
-  res.locals.usuario = req.session.usuario;
-  next();
-});
 
-await seedUsers();
+
+if (process.env.NODE_ENV !== "production") {
+  await seedUsers();
+}
 
 // CONEXION A BD
 connectDatabase()
