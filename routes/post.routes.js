@@ -49,13 +49,13 @@ router.get(
 // EDITAR PUBLICACIÓN
 // ======================================================
 
-router.get("/editar/:id", renderEditPost);
-
+router.get("/editar/:id",isAuthenticated, renderEditPost);
+router.post("/editar/:id", isAuthenticated, updatePost);
 // ======================================================
 // ELIMINAR PUBLICACIÓN
 // ======================================================
 
-router.post("/eliminar/:id", eliminarPost);
+router.post("/eliminar/:id", isAuthenticated,eliminarPost);
 
 // ======================================================
 // DETALLE  PUBLICACIÓN

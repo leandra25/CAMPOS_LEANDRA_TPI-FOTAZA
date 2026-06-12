@@ -1,12 +1,14 @@
-import { Valoracion ,Imagen,Publicacion } from "../models/index.js";
+import { Valoracion, Imagen, Publicacion } from "../models/index.js";
 
 
 export async function valorarImagen(req, res) {
   try {
-  
+
     const id_imagen = req.params.id;
-    const puntaje  = Number(req.body.puntaje);
-    const usuarioId = req.session.usuario.id_usuario;
+    const puntaje = Number(req.body.puntaje);
+    if (!req.session?.usuario) {
+      return res.status(401).send("Debes iniciar sesión");
+    }
 
     //  buscar la imagen con su publicación
     const imagen = await Imagen.findByPk(id_imagen, {
@@ -22,14 +24,14 @@ export async function valorarImagen(req, res) {
 
     // bloquear si es su propia publicación
     if (Number(imagen.publicacion?.id_usuario) === Number(usuarioId)) {
-  return res.status(403).json({ ok: false });
-}
+      return res.status(403).json({ ok: false });
+    }
 
     const [valoracion, creada] = await Valoracion.findOrCreate({
       where: {
         id_usuario: usuarioId,
         id_imagen
-        
+
       },
       defaults: { puntaje }
     });
